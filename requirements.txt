@@ -1,0 +1,14 @@
+-r requirements-api.txt
+requests==2.34.2
+pyyaml==6.0.3
+xlrd==2.0.2
+matplotlib==3.11.2
+great-expectations==1.23.2
+mlflow==3.16.1
+dvc==3.67.1
+pytest==9.1.1
+httpx==0.28.1
+black==26.10.0
+flake8==7.4.1
+ipykernel==7.4.0
+nbconvert==7.17.1
