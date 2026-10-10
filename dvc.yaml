@@ -1,0 +1,37 @@
+stages:
+  download:
+    cmd: python -m src.data.download
+    deps:
+      - src/data/download.py
+    outs:
+      - data/raw/credit.csv
+
+  prepare:
+    cmd: python -m src.data.make_dataset
+    deps:
+      - data/raw/credit.csv
+      - src/data/make_dataset.py
+      - src/data/validation.py
+    params:
+      - seed
+      - split
+    outs:
+      - data/processed
+
+  train:
+    cmd: python -m src.models.train
+    deps:
+      - data/processed
+      - src/features
+      - src/models
+    params:
+      - seed
+      - train
+    outs:
+      - models/model.joblib
+    metrics:
+      - reports/metrics.json:
+          cache: false
+    plots:
+      - reports/figures/roc_curve.png:
+          cache: false
