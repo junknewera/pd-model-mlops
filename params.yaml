@@ -2,3 +2,29 @@ seed: 42
 
 split:
   test_size: 0.2
+
+train:
+  cv: 5
+  scoring: roc_auc
+  models:
+    logreg:
+      search: grid
+      params:
+        model__C: [0.01, 0.1, 1.0, 10.0]
+        model__class_weight: [null, balanced]
+    random_forest:
+      search: random
+      n_iter: 8
+      params:
+        model__n_estimators: [200, 400]
+        model__max_depth: [6, 10, 14, null]
+        model__min_samples_leaf: [1, 5, 20]
+        model__class_weight: [null, balanced]
+    gradient_boosting:
+      search: random
+      n_iter: 6
+      params:
+        model__n_estimators: [100, 200, 300]
+        model__learning_rate: [0.03, 0.05, 0.1]
+        model__max_depth: [2, 3, 4]
+        model__subsample: [0.8, 1.0]
