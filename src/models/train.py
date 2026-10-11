@@ -82,6 +82,9 @@ def main():
                     "numpy.dtype",
                     "sklearn.tree._tree.Tree",
                     "src.features.build_features.add_features",
+                    "xgboost.core.Booster",
+                    "xgboost.sklearn.XGBClassifier",
+                    "catboost.core.CatBoostClassifier",
                 ],
             )
             log_candidates(name, search)
