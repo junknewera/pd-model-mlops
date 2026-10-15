@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint (flake8)
+        run: flake8 src tests
+
+      - name: Format check (black)
+        run: black --check src tests
+
+      - name: Cache raw data
+        uses: actions/cache@v4
+        with:
+          path: data/raw/credit.csv
+          key: raw-data-${{ hashFiles('src/data/download.py') }}
+
+      - name: Download data
+        run: python -m src.data.download
+
+      - name: Data validation (Great Expectations)
+        run: python -m src.data.validation data/raw/credit.csv
+
+      - name: Unit tests
+        run: pytest -v
