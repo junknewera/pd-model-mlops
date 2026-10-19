@@ -48,14 +48,14 @@ stages:
       nfiles: 2
     - path: src/features
       hash: md5
-      md5: d68a73560fd2d0f608dfa72b703be009.dir
-      size: 4031
-      nfiles: 4
+      md5: 715f2573c65bf1bb96790148e1a9d59b.dir
+      size: 1526
+      nfiles: 2
     - path: src/models
       hash: md5
-      md5: 17b315db5670d4162025a1abbc5cc8ec.dir
-      size: 18013
-      nfiles: 8
+      md5: 10ce16145d8abb3b8c655f8c462c7597.dir
+      size: 7053
+      nfiles: 4
     params:
       params.yaml:
         seed: 42
