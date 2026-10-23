@@ -54,11 +54,12 @@ def main():
     if args.shift:
         batch = shift_data(batch)
 
+    scores = []
     with requests.Session() as s:
-        scores = [
-            s.post(f"{args.url}/predict", json=row, timeout=10).json()["probability"]
-            for row in batch.to_dict(orient="records")
-        ]
+        for row in batch.to_dict(orient="records"):
+            resp = s.post(f"{args.url}/predict", json=row, timeout=10)
+            resp.raise_for_status()
+            scores.append(resp.json()["probability"])
     ref_scores = model.predict_proba(X_train)[:, 1]
 
     report = {"score": psi(ref_scores, scores)}
